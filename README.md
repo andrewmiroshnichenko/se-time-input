@@ -1,3 +1,4 @@
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/owner/my-element)
 # se-time-input
 
 Polymer wrapper around &lt;input type="time"> with browser-dependent appearance
@@ -27,7 +28,7 @@ Component have four public properties.
 | ---                         | ---     |
 | **Property name**           | value   |
 | **Property type**           | String  |
-| **Default value**           | '00:00' |
+| **Default value**           | 00:00   |
 | **Can be set from html**    | Yes     |
 | **Corresponding attribute** | value   |
 |                             |         |
@@ -37,7 +38,7 @@ Actual value of the component. Has format hh:mm where hh is hours(values from 0 
       <se-time-input value="12:34"></se-time-input>
 ```
 ```javascript
-      var customEl = document.querySelector('se-timer');
+      var customEl = document.querySelector('se-time-input');
       customEl.value; // returns String '12:34'
       customEl.value = '10:00';
       customEl.value; // returns String '10:00'
@@ -88,7 +89,7 @@ String that is shown as component’s placeholder when component’s value is em
  ```
 
 # Demo
-Better view on webcomponentsjs.org
+Better view on [webcomponentsjs.org](https://www.webcomponents.org)
  <!--
 ```
 <custom-element-demo>
