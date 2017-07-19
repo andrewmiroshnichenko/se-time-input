@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>se-time-input demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+
+    <link rel="import" href="../se-time-input.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles"></style>
+    <style>
+      se-time-input {
+        --input-text-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Basic se-time-input demo</h3>
+      <demo-snippet>
+        <template>
+          <se-time-input placeholder="Enter time">1:1</se-time-input>
+        </template>
+      </demo-snippet>
+    </div>
+    <script>
+      var customEl = document.querySelector('se-time-input');
+      // customEl.placeholder = 'Enter time';
+      // customEl.value = '';  // Placeholder becomes large and centerd on the element
+      // customEl.placeholder;  // Returns String 'Enter time'
+      // customEl.value = '00:11';  // Placeholder becomes small and shifts to the top-left corner of the component
+      // customEl.placeholder = 'hh:mm';  // Placeholder shows hh:mm
+      // customEl.placeholder;  // Returns String 'hh:mm'
+    </script>
+  </body>
+</html>

@@ -1,0 +1,209 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+`se-time-input`
+Extension of input[type=&#34;time&#34;] element
+
+@demo demo/index.html
+-->
+
+<dom-module id="se-time-input">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        border-radius: 0;
+        background: none;
+        border: 0;
+        outline: 0;
+      }
+      .input-wrapper {
+        width: 100px;
+        vertical-align: middle;
+        display: inline-block;
+        position: relative;
+        margin: 28px auto 8px;
+        height: 32px;
+      }
+      .time-input {
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid rgba(0, 0, 0, .12);
+        font: 16px/30px 'Roboto';
+        position: relative;
+        display: inline-block;
+        height: 100%;
+        color: var(--input-text-color, blue);
+      }
+      .time-input::-webkit-inner-spin-button {
+        display: none;
+        -webkit-appearance: none;/*Removing of gradient backround on select tag on Mac Safari*/
+      }
+      .time-input-label {
+        position: absolute;
+        top: 1px;
+        left: 50%;
+        color: #999999;
+        font: 16px/30px 'Roboto';
+        transform: translateX(-50%);
+        white-space: nowrap;
+        transition: top .25s, left .25s, font .25s, transform .25s;
+      }
+      .time-error {
+        font-size: 10px;
+        color: red;
+      }
+      .mobile-chrome-shifted {
+        left: -1000px;
+        position: absolute;
+      }
+      .animate-placeholder-out {
+        top: -10px;
+        left: 0px;
+        transform: translateX(0);
+        font: 12px/12px 'Roboto';
+      }
+      .time-input.none {
+        display: none;
+      }
+    </style>
+    <h2></h2>
+    <div class="input-wrapper">
+      <label class="time-input-label">[[_formattedPlaceholder]]</label>
+      <input disabled=[[disabled]] type="text" class="time-input none">
+      <input disabled=[[disabled]] type="time" class="time-input">
+      <p class="time-error">[[_error]]</p>
+    </div>
+  </template>
+  <script>
+    class MyElement extends Polymer.Element {
+      static get is() { return 'se-time-input'; }
+      static get properties() {
+        return {
+          placeholder: {
+            type: String,
+            reflectToAttribute: true,
+            observer: '_placeholderObserver'
+          },
+          value: {
+            type: String,
+            notify: true,
+            reflectToAttribute: true,
+            value: '00:00'
+          },
+          disabled: {
+            type: Boolean,
+            reflectToAttribute: true,
+            value: false
+          },
+          _error: {
+            type: Boolean,
+            value: ''
+          },
+          _element: {
+            type: String
+          },
+          _inputValue: {
+            type: String,
+            observer: '_moveLabelObserver'
+          },
+          _formattedPlaceholder: {
+            type: String,
+            value: ''
+          }
+        };
+      }
+      static get observers() {
+        return [
+          '_valueAndElementObserver(value, _element)'
+        ];
+      }
+      constructor() {
+        super();
+        this._boundHandleElementChange = this.handleElementChange.bind(this);
+        this._boundSetInputValueProp = this._setInputValueProp.bind(this);
+      }
+      ready() {
+        super.ready();
+        var shadow = this.shadowRoot;
+        var wrapperDiv = shadow.querySelector('.input-wrapper');
+        this._label = shadow.querySelector('.time-input-label');
+        var timeInput = shadow.querySelector('input[type="time"]');
+        var textInput = shadow.querySelector('input[type="text"]');
+        if (~navigator.userAgent.indexOf('Mobi') && Boolean(window.chrome)) {
+          textInput.className = 'time-input';
+          timeInput.className = 'time-input mobile-chrome-shifted';
+          textInput.onclick = function() {
+            timeInput.click();
+          };
+          timeInput.onchange = function() {
+            textInput.value = this.value;
+          };
+          // BUG On mobile Chrome setting of timeInput.value don't lead to setting of textInput.value(on init). We should do it man
+          if (this.value) textInput.value = this.value;
+          this._element = timeInput;
+        } else if (Boolean(window.chrome) && !~navigator.userAgent.indexOf('Edge')) {
+          textInput.className = 'time-input';
+          timeInput.className = 'time-input none';
+          this._element = textInput;
+        } else {
+          this._element = timeInput;
+        }
+      }
+      connectedCallback() {
+        super.connectedCallback();
+        this._element.addEventListener('change', this._boundHandleElementChange);
+        this._element.addEventListener('input', this._boundSetInputValueProp);
+      }
+      disconnectedCallback() {
+        super.disconnectedCallback();
+        this._element.removeEventListener('change', this._boundHandleElementChange);
+        this._element.removeEventListener('input', this._boundSetInputValueProp);
+      }
+      handleElementChange(event) {
+        this.value = event.target.value;
+        this.dispatchEvent(new CustomEvent('timeChange', {bubbles: true, composed: true, detail: {value: event.target.value}}));
+      }
+      _setInputValueProp(event) {
+        this._error = '';
+        this._inputValue = event.target.value;
+      }
+      _valueAndElementObserver(value, element) {
+        if (!element) return;
+        if (value && !this._isTimeValueFormatCorrect(value)) {
+          this._error = 'Wrong time format';
+        } else {
+          this._error = '';
+        }
+        this._element.value = value;
+        this._inputValue = value;
+      }
+      _moveLabelObserver(newValue, oldValue) {
+        if (!oldValue && newValue) {
+          this._label.classList.add('animate-placeholder-out');
+        } else if (oldValue && !newValue) {
+          this._label.classList.remove('animate-placeholder-out');
+        }
+      }
+      _placeholderObserver(newValue) {
+        let formattedValue = newValue.substr(0, 10);
+        this._formattedPlaceholder = formattedValue;
+      }
+      _isTimeValueFormatCorrect(newValue) {
+        let timeArray = newValue.split(':');
+        if (timeArray.length !== 2) return false;
+        let hours = +timeArray[0];
+        let minutes = +timeArray[1];
+        if (!!isNaN(parseFloat(timeArray[0])) && !isFinite(timeArray[0]) || !!isNaN(parseFloat(timeArray[1])) && !isFinite(timeArray[1])) return false;
+        if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59) return false;
+        return true;
+      }
+    }
+    window.customElements.define(MyElement.is, MyElement);
+  </script>
+</dom-module>

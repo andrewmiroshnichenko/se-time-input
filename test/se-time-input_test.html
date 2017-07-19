@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>se-time-input test</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <script src="../../web-component-tester/browser.js"></script>
+    <script src="../../test-fixture/test-fixture-mocha.js"></script>
+
+    <link rel="import" href="../se-time-input.html">
+    <link rel="import" href="../../test-fixture/test-fixture.html">
+  </head>
+  <body>
+    <test-fixture id="DeclarativePropertySetFixture">
+      <template>
+        <se-time-input placeholder="HH:MM" value="11:11" disabled="true"></se-time-input>
+      </template>
+    </test-fixture>
+    <test-fixture id="ImperativePropertySetFixture">
+      <template>
+        <se-time-input></se-time-input>
+      </template>
+    </test-fixture>
+    <test-fixture id="ValuePropertyFormatFixture">
+      <template>
+        <se-time-input></se-time-input>
+      </template>
+    </test-fixture>
+    <test-fixture id="PlaceholderPropertyFixture">
+      <template>
+        <se-time-input></se-time-input>
+      </template>
+    </test-fixture>
+    <script>
+      suite('se-time-input', function() {
+        test('use of declarative syntax for element properties', function() {
+          var element = fixture('DeclarativePropertySetFixture');
+          assert.equal(element.placeholder, 'HH:MM');
+          assert.equal(element.value, '11:11');
+          assert.equal(element.disabled, true);
+        });
+        test('use of imperative syntax for element properties', function() {
+          var element = fixture('ImperativePropertySetFixture');
+          element.placeholder = 'HH:MM';
+          element.value = '11:11';
+          element.disabled = true;
+          assert.equal(element.placeholder, 'HH:MM');
+          assert.equal(element.value, '11:11');
+          assert.equal(element.disabled, true);
+        });
+        test('correct set of value property', function() {
+          var element = fixture('ValuePropertyFormatFixture');
+          assert.equal(element.value, '00:00', 'step 1');
+          element.value = '11:11';
+          assert.equal(element.value, '11:11', 'step 2');
+          element.value = '00:00';
+          assert.equal(element.value, '00:00', 'step 3');
+          element.value = 'g:00';
+          assert.equal(element.value, 'g:00', 'step 4');
+          assert.equal(element._error, 'Wrong time format', 'step 4');
+          element.value = '1:d';
+          assert.equal(element.value, '1:d', 'step 5');
+          assert.equal(element._error, 'Wrong time format', 'step 5');
+          element.value = '1:1';
+          assert.equal(element.value, '1:1', 'step 6');
+          assert.equal(element._error, '', 'step 6');
+        });
+        test('correct set of placeholder property', function() {
+          var element = fixture('PlaceholderPropertyFixture');
+          element.placeholder = 'hh:mm';
+          assert.equal(element._formattedPlaceholder, 'hh:mm', 'step 1');
+          element.placeholder = 'Long placeholder';
+          assert.equal(element._formattedPlaceholder, 'Long place', 'step 2');
+          element.placeholder = 'Enter time';
+          assert.equal(element._formattedPlaceholder, 'Enter time', 'step 3');
+          element.placeholder = '';
+          assert.equal(element._formattedPlaceholder, '', 'step 4');
+        });
+      });
+    </script>
+  </body>
+</html>
