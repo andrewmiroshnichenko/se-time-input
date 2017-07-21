@@ -199,7 +199,7 @@ Extension of input[type=&#34;time&#34;] element
         if (timeArray.length !== 2) return false;
         let hours = +timeArray[0];
         let minutes = +timeArray[1];
-        if (!!isNaN(parseFloat(timeArray[0])) && !isFinite(timeArray[0]) || !!isNaN(parseFloat(timeArray[1])) && !isFinite(timeArray[1])) return false;
+        if (!!isNaN(parseFloat(timeArray[0])) || !isFinite(timeArray[0]) || !!isNaN(parseFloat(timeArray[1])) || !isFinite(timeArray[1])) return false;
         if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59) return false;
         return true;
       }
