@@ -13,10 +13,16 @@
 
     <link rel="import" href="../se-time-input.html">
 
-    <style is="custom-style" include="demo-pages-shared-styles"></style>
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles"></style>
+    </custom-style>
     <style>
       se-time-input {
-        --input-text-color: red;
+/*        --seinput-text-color: red;
+        --seinput-bottom-line-color: 1px solid black;
+        --seinput-placeholder-color: blue;
+        --seinput-input-font-size: 10px;
+        --seinput-input-font-family: serif;*/
       }
     </style>
   </head>
@@ -25,7 +31,7 @@
       <h3>Basic se-time-input demo</h3>
       <demo-snippet>
         <template>
-          <se-time-input placeholder="Enter time">1:1</se-time-input>
+          <se-time-input placeholder="Enter time" value="00:11"></se-time-input>
         </template>
       </demo-snippet>
     </div>

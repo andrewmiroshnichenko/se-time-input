@@ -1,18 +1,8 @@
 <link rel="import" href="../polymer/polymer.html">
 
-<!--
-`se-time-input`
-Extension of input[type=&#34;time&#34;] element
-
-@demo demo/index.html
--->
-
 <dom-module id="se-time-input">
   <template>
     <style>
-      :host {
-        display: block;
-      }
       * {
         padding: 0;
         margin: 0;
@@ -22,23 +12,34 @@ Extension of input[type=&#34;time&#34;] element
         border: 0;
         outline: 0;
       }
+      :host {
+        display: block;
+      }
       .input-wrapper {
+        --font-size-ratio: calc(var(--seinput-input-font-size, 16px) / 16);
         width: 100px;
+        width: calc(100 * var(--font-size-ratio));
         vertical-align: middle;
         display: inline-block;
         position: relative;
         margin: 28px auto 8px;
+        margin: calc(28 * var(--font-size-ratio)) auto calc(8 * var(--font-size-ratio));
         height: 32px;
+        height: calc(32 * var(--font-size-ratio));
       }
       .time-input {
         width: 100%;
         text-align: center;
         border-bottom: 1px solid rgba(0, 0, 0, .12);
-        font: 16px/30px 'Roboto';
+        border-bottom: var(--seinput-bottom-line-color, 1px solid rgba(0, 0, 0, .12));
+        font: 16px/30px 'Roboto', sans-serif;
+        font-size: var(--seinput-input-font-size, 16px);
+        line-height: calc(2 * var(--seinput-input-font-size, 16px));
+        font-family: var(--seinput-input-font-family, 'Roboto', sans-serif);
         position: relative;
         display: inline-block;
-        height: 100%;
-        color: var(--input-text-color, black);
+        /*height: 100%;*/
+        color: var(--seinput-text-color, black);
       }
       .time-input::-webkit-inner-spin-button {
         display: none;
@@ -46,16 +47,20 @@ Extension of input[type=&#34;time&#34;] element
       }
       .time-input-label {
         position: absolute;
-        top: 1px;
+        top: 8px;
+        top: calc(8 * var(--font-size-ratio));
         left: 50%;
         color: #999999;
-        font: 16px/30px 'Roboto';
+        color: var(--seinput-placeholder-color, #999999);
+        font: 16px/16px 'Roboto' sans-serif;
+        font: var(--seinput-input-font-size, 16px)/var(--seinput-input-font-size, 16px) var(--seinput-input-font-family, 'Roboto', sans-serif);
         transform: translateX(-50%);
         white-space: nowrap;
-        transition: top .25s, left .25s, font .25s, transform .25s;
+        transition: all .25s;
       }
       .time-error {
         font-size: 10px;
+        font-size: calc(10 * var(--font-size-ratio));
         color: red;
       }
       .mobile-chrome-shifted {
@@ -64,9 +69,15 @@ Extension of input[type=&#34;time&#34;] element
       }
       .animate-placeholder-out {
         top: -10px;
+        top: calc(var(--font-size-ratio) * (-10));
         left: 0px;
         transform: translateX(0);
-        font: 12px/12px 'Roboto';
+        font-size: 12px;
+        font-size: calc(12 * var(--font-size-ratio));
+        line-height: 12px;
+        line-height: calc(12 * var(--font-size-ratio));
+        font-family: 'Roboto', sans-serif;
+        font-family: var(--seinput-input-font-family, 'Roboto', sans-serif);
       }
       .time-input.none {
         display: none;
