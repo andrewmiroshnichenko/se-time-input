@@ -1,7 +1,7 @@
-[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/owner/my-element)
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/andrewmiroshnichenko/se-time-input)
 # se-time-input
 
-Polymer wrapper around &lt;input type="time"> with browser-dependent appearance
+Polymer wrapper around input type `time` with browser-dependent appearance. Basically, it allows user to use native mobile time pickers and Edge time picker, because they are looking good and provide good experience. In other cases (unsuppored type `time` or desktop Chrome) input will become `text` with ability to manually enter the value.
 
 ## Install
 ```
@@ -55,6 +55,7 @@ Actual value of the component. Has format hh:mm where hh is hours(values from 0 
 |                             |            |
 
 If true - disables possibility of user interaction with component. But component’s value still will be changeable from code.
+**Warning:** presence of this property as attribute of `<se-time-input>` tag will lead to disabling of component, even if it's value will be `false`.
 
 ```html
       <se-time-input></se-time-input>
@@ -87,9 +88,20 @@ String that is shown as component’s placeholder when component’s value is em
       customEl.placeholder = 'hh:mm';
       customEl.placeholder; // returns String 'hh:mm'
  ```
+## Styling
+
+The following custom properties are available for styling:
+
+| Custom property               | Description                                                         | Default                        |
+| ---                           | ---                                                                 | ---                            |
+| `--seinput-text-color`        | Input digits color                                                  | Browser-default(black)         |
+| `--seinput-bottom-line-color` | Style of component’s bottom line. Other borders are disabled        | `1px solid rgba(0, 0, 0, .12)` |
+| `--seinput-placeholder-color` | Color of placeholder text                                           | `#999999`                      |
+| `--seinput-input-font-size`   | Font size of digits. All component dimesions will scale accordingly | `16px`                         |
+| `--seinput-input-font-family` | Font family of input digits                                         | `Roboto, sans-serif`           |
 
 # Demo
-Better view on [webcomponentsjs.org](https://www.webcomponents.org)
+Better view on [webcomponentsjs.org](https://www.webcomponents.org/element/andrewmiroshnichenko/se-time-input)
  <!--
 ```
 <custom-element-demo>
