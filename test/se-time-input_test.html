@@ -13,28 +13,48 @@
 
     <link rel="import" href="../se-time-input.html">
     <link rel="import" href="../../test-fixture/test-fixture.html">
+    <style>
+      .test-timeinput {
+        --setimeinput-font-size: 32px;
+        --setimeinput-font-family: 'Comic Sans';
+        --setimeinput-bottom-line: 2px dashed red;
+        --setimeinput-text-color: orange;
+        --setimeinput-placeholder-color: blue;
+      }
+    </style>
   </head>
   <body>
+
     <test-fixture id="DeclarativePropertySetFixture">
       <template>
         <se-time-input placeholder="HH:MM" value="11:11" disabled="true"></se-time-input>
       </template>
     </test-fixture>
+
     <test-fixture id="ImperativePropertySetFixture">
       <template>
         <se-time-input></se-time-input>
       </template>
     </test-fixture>
+
     <test-fixture id="ValuePropertyFormatFixture">
       <template>
         <se-time-input></se-time-input>
       </template>
     </test-fixture>
+
     <test-fixture id="PlaceholderPropertyFixture">
       <template>
         <se-time-input></se-time-input>
       </template>
     </test-fixture>
+
+    <test-fixture id="StylingFixture">
+      <template>
+        <se-time-input placeholder="HH:MM" value="11:11" class="test-timeinput"></se-time-input>
+      </template>
+    </test-fixture>
+
     <script>
       suite('se-time-input', function() {
         test('use of declarative syntax for element properties', function() {
@@ -79,6 +99,14 @@
           assert.equal(element._formattedPlaceholder, 'Enter time', 'step 3');
           element.placeholder = '';
           assert.equal(element._formattedPlaceholder, '', 'step 4');
+        });
+        test('manipulating of styles', function() {
+          let element = fixture('StylingFixture');
+          assert.equal(getComputedStyle(element._element).fontFamily, '"Comic Sans"', 'check font family');
+          assert.equal(getComputedStyle(element._element).fontSize, '32px', 'check font size');
+          assert.equal(getComputedStyle(element._element).borderBottom, '2px dashed rgb(255, 0, 0)', 'check bottom border');
+          assert.equal(getComputedStyle(element._element).color, 'rgb(255, 165, 0)', 'check main color');
+          assert.equal(getComputedStyle(element._label).color, 'rgb(0, 0, 255)', 'check placeholder color');
         });
       });
     </script>

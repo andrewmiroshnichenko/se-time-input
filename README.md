@@ -92,13 +92,13 @@ String that is shown as component’s placeholder when component’s value is em
 
 The following custom properties are available for styling:
 
-| Custom property               | Description                                                         | Default                        |
-| ---                           | ---                                                                 | ---                            |
-| `--seinput-text-color`        | Input digits color                                                  | Browser-default(black)         |
-| `--seinput-bottom-line-color` | Style of component’s bottom line. Other borders are disabled        | `1px solid rgba(0, 0, 0, .12)` |
-| `--seinput-placeholder-color` | Color of placeholder text                                           | `#999999`                      |
-| `--seinput-input-font-size`   | Font size of digits. All component dimesions will scale accordingly | `16px`                         |
-| `--seinput-input-font-family` | Font family of input digits                                         | `Roboto, sans-serif`           |
+| Custom property                   | Description                                                         | Default                        |
+| ---                               | ---                                                                 | ---                            |
+| `--setimeinput-text-color`        | Input digits color                                                  | Browser-default(black)         |
+| `--setimeinput-bottom-line`       | Style of component’s bottom line. Other borders are disabled        | `1px solid rgba(0, 0, 0, .12)` |
+| `--setimeinput-placeholder-color` | Color of placeholder text                                           | `#999999`                      |
+| `--setimeinput-font-size`         | Font size of digits. All component dimesions will scale accordingly | `16px`                         |
+| `--setimeinput-font-family`       | Font family of input digits                                         | `Roboto, sans-serif`           |
 
 # Demo
 Better view on [webcomponentsjs.org](https://www.webcomponents.org/element/andrewmiroshnichenko/se-time-input)

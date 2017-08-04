@@ -16,7 +16,7 @@
         display: block;
       }
       .input-wrapper {
-        --font-size-ratio: calc(var(--seinput-input-font-size, 16px) / 16);
+        --font-size-ratio: calc(var(--setimeinput-font-size, 16px) / 16);
         width: 100px;
         width: calc(100 * var(--font-size-ratio));
         vertical-align: middle;
@@ -31,15 +31,15 @@
         width: 100%;
         text-align: center;
         border-bottom: 1px solid rgba(0, 0, 0, .12);
-        border-bottom: var(--seinput-bottom-line-color, 1px solid rgba(0, 0, 0, .12));
+        border-bottom: var(--setimeinput-bottom-line, 1px solid rgba(0, 0, 0, .12));
         font: 16px/30px 'Roboto', sans-serif;
-        font-size: var(--seinput-input-font-size, 16px);
-        line-height: calc(2 * var(--seinput-input-font-size, 16px));
-        font-family: var(--seinput-input-font-family, 'Roboto', sans-serif);
+        font-size: var(--setimeinput-font-size, 16px);
+        line-height: calc(2 * var(--setimeinput-font-size, 16px));
+        font-family: var(--setimeinput-font-family, 'Roboto', sans-serif);
         position: relative;
         display: inline-block;
         /*height: 100%;*/
-        color: var(--seinput-text-color, black);
+        color: var(--setimeinput-text-color, black);
       }
       .time-input::-webkit-inner-spin-button {
         display: none;
@@ -51,9 +51,9 @@
         top: calc(8 * var(--font-size-ratio));
         left: 50%;
         color: #999999;
-        color: var(--seinput-placeholder-color, #999999);
+        color: var(--setimeinput-placeholder-color, #999999);
         font: 16px/16px 'Roboto' sans-serif;
-        font: var(--seinput-input-font-size, 16px)/var(--seinput-input-font-size, 16px) var(--seinput-input-font-family, 'Roboto', sans-serif);
+        font: var(--setimeinput-font-size, 16px)/var(--setimeinput-font-size, 16px) var(--setimeinput-font-family, 'Roboto', sans-serif);
         transform: translateX(-50%);
         white-space: nowrap;
         transition: all .25s;
@@ -77,7 +77,7 @@
         line-height: 12px;
         line-height: calc(12 * var(--font-size-ratio));
         font-family: 'Roboto', sans-serif;
-        font-family: var(--seinput-input-font-family, 'Roboto', sans-serif);
+        font-family: var(--setimeinput-font-family, 'Roboto', sans-serif);
       }
       .time-input.none {
         display: none;
