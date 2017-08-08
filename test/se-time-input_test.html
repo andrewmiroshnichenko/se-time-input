@@ -55,8 +55,16 @@
       </template>
     </test-fixture>
 
+    <test-fixture id="EventFixture">
+      <template>
+        <se-time-input placeholder="HH:MM" value="11:11" class="test-timeinput"></se-time-input>
+      </template>
+    </test-fixture>
+
     <script>
       suite('se-time-input', function() {
+        var clock;
+        clock = sinon.useFakeTimers();
         test('use of declarative syntax for element properties', function() {
           var element = fixture('DeclarativePropertySetFixture');
           assert.equal(element.placeholder, 'HH:MM');
@@ -107,6 +115,13 @@
           assert.equal(getComputedStyle(element._element).borderBottom, '2px dashed rgb(255, 0, 0)', 'check bottom border');
           assert.equal(getComputedStyle(element._element).color, 'rgb(255, 165, 0)', 'check main color');
           assert.equal(getComputedStyle(element._label).color, 'rgb(0, 0, 255)', 'check placeholder color');
+        });
+        test('checking for event', function() {
+          let element = fixture('EventFixture');
+          let spy = sinon.spy();
+          element.addEventListener('timeChange', spy);
+          element.handleElementChange({target: {value: '01:00'}});
+          assert.equal(spy.args[0][0]['detail']['value'], '01:00', 'spy called');
         });
       });
     </script>

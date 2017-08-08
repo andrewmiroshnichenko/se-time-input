@@ -20,8 +20,10 @@ $ polymer serve
 ```
 $ polymer test
 ```
-## API
-Component have four public properties.
+# API
+
+## Properties.
+
 1. Value
 
 |                             |         |
@@ -100,6 +102,25 @@ The following custom properties are available for styling:
 | `--setimeinput-font-size`         | Font size of digits. All component dimesions will scale accordingly | `16px`                         |
 | `--setimeinput-font-family`       | Font family of input digits                                         | `Roboto, sans-serif`           |
 
+## Events
+
+timeChange(event)
+Event is fired when input field, either input[type="time"] or input[type="text"] loses focus. This is wrapper of `change` event, presented on every input element.
+New component value is available in event object, as `event.detail.value`.
+```html
+      <se-time-input></se-time-input>
+```
+```javascript
+      var customEl = document.querySelector('se-time-input');
+      customEl.addEventListener('timeChange', (event) => {
+        console.log(event.detail.value);
+      });
+      // user focuses on input
+      // user enters time value '02:00'
+      // user removes focus from input
+      // '02:00' is printed on the console
+
+ ```
 # Demo
 Better view on [webcomponentsjs.org](https://www.webcomponents.org/element/andrewmiroshnichenko/se-time-input)
  <!--
